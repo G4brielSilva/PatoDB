@@ -1,5 +1,7 @@
 package main.java.main;
 
+import java.util.Arrays;
+
 import main.java.file.BinaryFile;
 
 /**
@@ -8,19 +10,25 @@ import main.java.file.BinaryFile;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        try {
-            System.out.println("Hi");
-        
+    public static void main( String[] args ) {
+        try {        
             BinaryFile binFile = new BinaryFile();
-            binFile.writeBinaryFile("gabriel", "10", "gabriel@gmail.com");
-            String[] data = binFile.readBynaryFile();
-            for (String dt: data) {
-                System.out.println(dt);
+
+            String command = Arrays.copyOfRange(args, 0, 1)[0];
+            String[] dataToInsert = Arrays.copyOfRange(args, 1, args.length);
+
+            if (command.contains("w")) {
+                binFile.writeBinaryFile(dataToInsert);
             }
 
-            System.out.println("Bye");
+            if (command.contains("r")) {
+                String[] data = binFile.readBynaryFile();
+                for (String dt: data) {
+                    System.out.println(dt);
+                }
+            }
+            
+
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
